@@ -11,5 +11,13 @@ pipeline {
             steps {
                 sh 'mvn clean package'
             }
+        
         }
+        // stage("push artifact") {
+        //     steps {
+        //         sh 'cp target/*.war /opt/tomcat_10/webapps'
+        //     }
+        // }
     }
+
+}
