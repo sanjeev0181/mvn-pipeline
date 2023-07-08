@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package'sssss
             }
         
         }
@@ -21,7 +21,7 @@ pipeline {
         stage("Upload war to nexus"){
             steps {
                 nexusArtifactUploader artifacts: [[artifactId: 'nexus-repo', 
-                                                  classifier: '', file: 'target/nexus-repo', 
+                                                  classifier: '', file: 'target/nexus-repo-5.0.0.war', 
                                                   type: 'war']], 
                                                   credentialsId: 'nexusrepo', 
                                                   groupId: 'icic', 
