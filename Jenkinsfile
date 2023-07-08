@@ -20,7 +20,7 @@ pipeline {
         }
         stage("Upload war to nexus"){
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'funds', classifier: '', file: 'target/funds-5.0.0', type: 'war']], credentialsId: 'nexusrepo', groupId: 'icic', nexusUrl: '34.238.135.158:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'mvn-pipeline', version: '5.0.0'
+                nexusArtifactUploader artifacts: [[artifactId: 'funds', classifier: '', file: 'target/funds-5.0.0.war', type: 'war']], credentialsId: 'nexusrepo', groupId: 'icic', nexusUrl: '172.31.80.58', nexusVersion: 'nexus3', protocol: 'http', repository: 'mvn', version: '5.0.0'
             }
         }
     }
