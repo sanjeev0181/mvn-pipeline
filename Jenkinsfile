@@ -20,8 +20,8 @@ pipeline {
         }
         stage("Upload war to nexus"){
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'funds-1.0', 
-                                                  classifier: '', file: 'target/funds-1.0-5.0.0', 
+                nexusArtifactUploader artifacts: [[artifactId: 'nexus-repo', 
+                                                  classifier: '', file: 'target/nexus-repo', 
                                                   type: 'war']], 
                                                   credentialsId: 'nexusrepo', 
                                                   groupId: 'icic', 
