@@ -63,20 +63,20 @@ pipeline {
          stage("publish to nexus") {
             steps {
                 script {
-                    def pom = readMavenPom file: "pom.xml";
+                    def mavenPom = readMavenPom file: "pom.xml";
                     
 
-                        nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
+                        nexusArtifactUploader artifacts: [[artifactId: '${mavenPom.artifactId}', 
 
-                                                    classifier: '', file: 'target/${artifactId}.war',
-                                                    type: '${pom.packaging}']], 
+                                                    classifier: '', file: 'target/${mavenPom.artifactId}.war',
+                                                    type: '${mavenPom.packaging}']], 
                                                     credentialsId: 'nexusrepo', 
-                                                    groupId: '{pom.groupId}', 
+                                                    groupId: '{mavenPom.groupId}', 
                                                     nexusUrl: '3.94.8.130:8081', 
                                                     nexusVersion: 'nexus3', 
                                                     protocol: 'http', 
                                                     repository: 'mvn', 
-                                                    version: '${pom.version}'
+                                                    version: '${mavenPom.version}'
                     
                     
                 }
