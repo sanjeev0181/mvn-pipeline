@@ -76,7 +76,7 @@ pipeline {
         //                         version: "${pom.version}"
         //         }
         //     }
-         }
+        //  }
     }
 
 }
