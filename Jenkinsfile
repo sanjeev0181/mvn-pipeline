@@ -71,28 +71,28 @@ pipeline {
                 sh 'cp target/*.war /opt/tomcat_10/webapps'
             }
         }
-         stage("publish to nexus") {
-            steps {
-                script {
-                    pom = readMavenPom file: "pom.xml";
-                    echo "artifact-d--> ${pom.artifactid}"
-	                echo "groupid-d --> ${pom.groupid}"
-                    echo "packing-d --> ${pom.packaging}"
-                    echo "version-d -- > ${pom.version}"
-                    // nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
-                    //                                 classifier: '', file: 'target/*.war',
-                    //                                  type: '${pom.packaging}']], 
-                    //                                  credentialsId: 'nexusrepo', 
-                    //                                  groupId: '${pom.groupId}', 
-                    //                                  nexusUrl: '3.94.8.130:8081', 
-                    //                                  nexusVersion: 'nexus3', 
-                    //                                  protocol: 'http', 
-                    //                                  repository: 'mvn', 
-                    //                                  version: '${pom.version}'
-                    }
-                }
-            }
-        }
+        //  stage("publish to nexus") {
+        //     steps {
+        //         script {
+        //             pom = readMavenPom file: "pom.xml";
+        //             echo "artifact-d--> ${pom.artifactid}"
+	    //             echo "groupid-d --> ${pom.groupid}"
+        //             echo "packing-d --> ${pom.packaging}"
+        //             echo "version-d -- > ${pom.version}"
+        //             // nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
+        //             //                                 classifier: '', file: 'target/*.war',
+        //             //                                  type: '${pom.packaging}']], 
+        //             //                                  credentialsId: 'nexusrepo', 
+        //             //                                  groupId: '${pom.groupId}', 
+        //             //                                  nexusUrl: '3.94.8.130:8081', 
+        //             //                                  nexusVersion: 'nexus3', 
+        //             //                                  protocol: 'http', 
+        //             //                                  repository: 'mvn', 
+        //             //                                  version: '${pom.version}'
+        //             }
+        //         }
+        //     }
+        }      
 
     }
 
