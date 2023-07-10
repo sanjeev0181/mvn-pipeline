@@ -81,7 +81,7 @@ pipeline {
             steps {
                 script {
                     waitForQualityGate abortPipeline: false, credentialsId: 'nexusrepo'
-                    sh "mvn clean package sonar:sonar"
+                    sh "mvn sonar:sonar"
                 }
             }
          }
