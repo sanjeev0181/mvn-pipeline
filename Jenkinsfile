@@ -75,7 +75,8 @@ pipeline {
             steps {
                 script {
                     def pom = readMavenPom file: "pom.xml";
-                    sh "sudo ls -l /target"
+                    sh "cd target" 
+                    sh  "ls -l "
                     
                     // echo "artifact-d--> ${pom.artifactId}"
 	                // echo "groupid-d --> ${pom.groupId}"
