@@ -51,6 +51,7 @@ pipeline {
         stage("push artifact") {
              steps {
                  sh 'cp target/*.war /opt/tomcat_10/webapps'
+                archiveArtifacts artifacts: "*/target/.war"
              }
          }
          stage("uploading artifactId") {
