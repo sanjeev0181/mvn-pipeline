@@ -73,7 +73,7 @@ pipeline {
         }
          stage("publish to nexus") {
             steps {
-                    nexusArtifactUploader artifacts: [[artifactId: '${POM_ARTIFACTID}', classifier: '', file: 'target/: ${POM_ARTIFACTID}-${POM_VERSION}.${POM_PACKAGING}', type: '${POM_PACKAGING}']], credentialsId: 'nexusrepo', groupId: '${POM_GROUPID}', nexusUrl: '3.94.8.130:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'mvn', version: '${POM_VERSION}'
+                    nexusArtifactUploader artifacts: [[artifactId: '${POM_ARTIFACTID}', classifier: '', file: 'target/${POM_ARTIFACTID}-${POM_VERSION}.${POM_PACKAGING}', type: '${POM_PACKAGING}']], credentialsId: 'nexusrepo', groupId: '${POM_GROUPID}', nexusUrl: '3.94.8.130:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'mvn', version: '${POM_VERSION}'
                 
                 }
             }
