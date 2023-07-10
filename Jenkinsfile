@@ -64,30 +64,21 @@ pipeline {
             steps {
                 script {
                     def pom = readMavenPom file: "pom.xml";
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
-                    echo "artifactPath"
-                    artifactExists = fileExists artifactPath;
-                    if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                    
 
-                        nexusArtifactUploader artifacts: [[artifactId: 'pom.artifactId', 
+                        nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
 
-                                                    classifier: '', file: 'artifactPath',
-                                                    type: 'pom.packaging']], 
+                                                    classifier: '', file: 'target/${artifactId}.war',
+                                                    type: '${pom.packaging}']], 
                                                     credentialsId: 'nexusrepo', 
-                                                    groupId: 'pom.groupId', 
+                                                    groupId: '{pom.groupId}', 
                                                     nexusUrl: '3.94.8.130:8081', 
                                                     nexusVersion: 'nexus3', 
                                                     protocol: 'http', 
                                                     repository: 'mvn', 
-                                                    version: 'pom.version'
-                    }                                
-                    else {
-                        error "*** File: ${artifactPath}, could not be found";
-                    }
-                     }
+                                                    version: '${pom.version}'
+                    
+                    
                 }
             }
         }      
