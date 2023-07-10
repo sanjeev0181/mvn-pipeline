@@ -53,6 +53,25 @@ pipeline {
                  sh 'cp target/*.war /opt/tomcat_10/webapps'
              }
          }
+         stage("uploading artifactId") {
+            steps {
+                script {
+                    def pom = readMavenPom file: 'pom.xml' 
+                    nexusArtifactUploader artifacts: 
+                                [[artifactId: '${pom.artifactId}', 
+                                classifier: '', 
+                                file: 'target/${pom.artifactId}-${pom.version}.${pom.packaging}', 
+                                type: '${pom.packaging}']], 
+                                credentialsId: 'nexusrepo', 
+                                groupId: '${pom.groupId}', 
+                                nexusUrl: '172.31.80.58', 
+                                nexusVersion: 'nexus3',
+                                protocol: 'http', 
+                                repository: 'mvn', 
+                                version: '${pom.version}'
+                }
+            }
+         }
     }
 
 }
