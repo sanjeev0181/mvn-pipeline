@@ -80,7 +80,7 @@ pipeline {
                     echo "groupid-d --> ${pom.groupId}"
                     echo "packing-d --> ${pom.packaging}"
                     echo "version-d -- > ${pom.version}"
-                    sh "ls /target/"
+                    sh "ls  target/"
                     nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
 
                                                     classifier: '', file: 'target/*.war',
