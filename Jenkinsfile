@@ -57,9 +57,6 @@ pipeline {
          stage("uploading artifactId") {
             steps {
                 script {
-                    sh "pwd"
-                    sh "ls -ltra"
-                    sh " cd target/*.war"
                     pom = readMavenPom file: 'pom.xml' 
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: '${pom.artifactId}', 
@@ -68,7 +65,7 @@ pipeline {
                                 type: "${pom.packaging}"]], 
                                 credentialsId: "nexusrepo", 
                                 groupId: "${pom.groupId}", 
-                                nexusUrl: '172.31.80.58', 
+                                nexusUrl: '172.31.80.58:8081', 
                                 nexusVersion: 'nexus3',
                                 protocol: 'http', 
                                 repository: 'mvn', 
