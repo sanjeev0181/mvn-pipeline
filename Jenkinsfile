@@ -67,7 +67,7 @@ pipeline {
                                 classifier: '', 
                                 file: "target/${pom.artifactId}-${pom.version}.war", 
                                 type: "${pom.packaging}"]], 
-                                credentialsId: "nexusrepo", 
+                                credentialsId: "nexusrepo01", 
                                 groupId: "${pom.groupId}", 
                                 nexusUrl: "${nexus_url}:8081", 
                                 nexusVersion: 'nexus3',
