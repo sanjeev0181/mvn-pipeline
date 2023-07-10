@@ -56,6 +56,8 @@ pipeline {
          stage("uploading artifactId") {
             steps {
                 script {
+                    sh "ls -ltra"
+                    sh " cd target/*.war"
                     def pom = readMavenPom file: 'pom.xml' 
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: '${pom.artifactId}', 
