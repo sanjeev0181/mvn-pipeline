@@ -40,49 +40,12 @@
 
 
 pipeline {
-    agent any
-    tools {
-        maven 'mvn'
-    }
-    
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '9'))
-    }
+    agent any 
     stages {
-        stage("build") {
-            steps {
-                sh 'mvn clean package'
+        stage("mvn build"){
+            step {
+                sh "mvn clean package"
             }
-        
         }
-        // stage("push artifact") {
-        //     steps {
-        //         sh 'cp target/*.war /opt/tomcat_10/webapps'
-        //     }
-        // }
-         stage("publish to nexus") {
-            steps {
-                script {
-                    def mavenPom = readMavenPom file: "pom.xml";
-                    
-
-                        nexusArtifactUploader artifacts: [[artifactId: '${mavenPom.artifactId}', 
-
-                                                    classifier: '', file: 'target/${mavenPom.artifactId}.war',
-                                                    type: '${mavenPom.packaging}']], 
-                                                    credentialsId: 'nexusrepo', 
-                                                    groupId: '{mavenPom.groupId}', 
-                                                    nexusUrl: '3.94.8.130:8081', 
-                                                    nexusVersion: 'nexus3', 
-                                                    protocol: 'http', 
-                                                    repository: 'mvn', 
-                                                    version: '${mavenPom.version}'
-                    
-                    
-                }
-            }
-        }      
-
     }
-
 }
