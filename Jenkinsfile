@@ -82,8 +82,7 @@ pipeline {
                     echo "version-d -- > ${pom.version}"
                     echo "path-d --> pwd"
                     echo "list -- > ls -ltra"
-                    sh """ ls  target/,
-                           pwd """
+                    
                     nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
 
                                                     classifier: '', file: 'target/*.war',
