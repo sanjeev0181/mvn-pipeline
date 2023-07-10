@@ -22,7 +22,7 @@
 //             steps {
 //                 script {
 //                     nexusArtifactUploader artifacts: [[artifactId: 'nexus-repo', 
-//                                                   classifier: '', file: 'target/nexus-repo-5.0.0war', 
+//                                                   classifier: '', file: 'target/nexus-repo-5.0.0.war', 
 //                                                   type: 'war']], 
 //                                                   credentialsId: 'nexusrepo', 
 //                                                   groupId: 'icic', 
@@ -77,7 +77,7 @@ pipeline {
                     // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
                     pom = readMavenPom file: "pom.xml";
                     // Find built artifact under target folder
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}.war");
                     // Print some info from the artifact found
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
                     // Extract the path from the File found
