@@ -44,18 +44,7 @@ pipeline {
     tools {
         maven 'mvn'
     }
-    // environment {
-    //     // This can be nexus3 or nexus2
-    //     NEXUS_VERSION = "nexus3"
-    //     // This can be http or https
-    //     NEXUS_PROTOCOL = "http"
-    //     // Where your Nexus is running
-    //     NEXUS_URL = "3.94.8.130:8081"
-    //     // Repository where we will upload the artifact
-    //     NEXUS_REPOSITORY = "mvn"
-    //     // Jenkins credential id to authenticate to Nexus OSS
-    //     NEXUS_CREDENTIAL_ID = "nexusrepo"
-    // }
+    
     options {
         buildDiscarder(logRotator(numToKeepStr: '9'))
     }
