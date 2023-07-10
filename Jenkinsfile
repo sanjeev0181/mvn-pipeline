@@ -80,7 +80,7 @@ pipeline {
                     // echo "packing-d --> ${pom.packaging}"
                     // echo "version-d -- > ${pom.version}"
                     nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
-                                                    classifier: '', file: 'target/*.war',
+                                                    classifier: '', file: 'target/${pom.artifactId}-{pom.version}.war',
                                                      type: '${pom.packaging}']], 
                                                      credentialsId: 'nexusrepo', 
                                                      groupId: '${pom.groupId}', 
