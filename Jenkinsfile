@@ -75,8 +75,8 @@ pipeline {
             steps {
                 script {
                     def pom = readMavenPom file: "pom.xml";
-                    echo "artifact-d--> ${pom.artifactid}"
-	                echo "groupid-d --> ${pom.groupid}"
+                    echo "artifact-d--> ${pom.artifactId}"
+	                echo "groupid-d --> ${pom.groupId}"
                     echo "packing-d --> ${pom.packaging}"
                     echo "version-d -- > ${pom.version}"
                     // nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
