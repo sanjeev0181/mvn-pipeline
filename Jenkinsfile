@@ -76,6 +76,7 @@ pipeline {
                 script {
                     def pom = readMavenPom file: "pom.xml";
                     sh "ls -l"
+                    
                     // echo "artifact-d--> ${pom.artifactId}"
 	                // echo "groupid-d --> ${pom.groupId}"
                     // echo "packing-d --> ${pom.packaging}"
@@ -91,7 +92,7 @@ pipeline {
                     //                                  protocol: 'http', 
                     //                                  repository: 'mvn', 
                     //                                  version: '${pom.version}'
-                    // }
+                     }
                 }
             }
         }      
