@@ -75,7 +75,7 @@ pipeline {
             steps {
                 script {
                     pom = readMavenPom file: "pom.xml";
-                    nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', classifier: '', file: 'target/*.war', type: '${pom.packaging}']], credentialsId: 'nexusrepo', groupId: '${pom.groupId}', nexusUrl: '3.94.8.130:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'mvn', version: '${pom.version}'
+                    nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', classifier: '', file: 'target/${pom.artifactId}-${pom.version}.${pom.packaging}', type: '${pom.packaging}']], credentialsId: 'nexusrepo', groupId: '${pom.groupId}', nexusUrl: '3.94.8.130:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'mvn', version: '${pom.version}'
                     }
                 }
             }
