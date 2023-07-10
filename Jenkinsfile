@@ -39,7 +39,7 @@
 // }
 
 
-def nexus_url = "3.94.8.130"
+
 pipeline {
     agent any 
     stages {
@@ -58,6 +58,7 @@ pipeline {
             steps {
                 script {
                     pom = readMavenPom file: 'pom.xml' 
+                    nexus_url = "172.31.80.58"
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: "${pom.artifactId}", 
                                 classifier: '', 
