@@ -75,21 +75,23 @@ pipeline {
             steps {
                 script {
                     def pom = readMavenPom file: "pom.xml";
+                    sh "ls -l"
                     // echo "artifact-d--> ${pom.artifactId}"
 	                // echo "groupid-d --> ${pom.groupId}"
                     // echo "packing-d --> ${pom.packaging}"
                     // echo "version-d -- > ${pom.version}"
-                    nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
-                                                    classifier: '', file: 'target/${pom.artifactId}-{pom.version}.war',
-                                                     type: '${pom.packaging}']], 
-                                                     credentialsId: 'nexusrepo', 
-                                                     groupId: '${pom.groupId}', 
-                                                     nexusUrl: '3.94.8.130:8081', 
-                                                     nexusVersion: 'nexus3', 
-                                                     protocol: 'http', 
-                                                     repository: 'mvn', 
-                                                     version: '${pom.version}'
-                    }
+                    // nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
+
+                    //                                 classifier: '', file: 'target/${pom.artifactId}-{pom.version}.war',
+                    //                                  type: '${pom.packaging}']], 
+                    //                                  credentialsId: 'nexusrepo', 
+                    //                                  groupId: '${pom.groupId}', 
+                    //                                  nexusUrl: '3.94.8.130:8081', 
+                    //                                  nexusVersion: 'nexus3', 
+                    //                                  protocol: 'http', 
+                    //                                  repository: 'mvn', 
+                    //                                  version: '${pom.version}'
+                    // }
                 }
             }
         }      
