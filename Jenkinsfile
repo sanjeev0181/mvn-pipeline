@@ -3,9 +3,9 @@
 //     tools {
 //         maven 'mvn'
 //     }
-//     options {
-//         buildDiscarder(logRotator(numToKeepStr: '3'))
-//     }
+    // options {
+    //     buildDiscarder(logRotator(numToKeepStr: '3'))
+    // }
 //     stages {
 //         stage("build") {
 //             steps {
@@ -42,6 +42,9 @@
 
 pipeline {
     agent any 
+     options {
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+    }
     stages {
         stage("mvn build"){
             steps {
@@ -58,7 +61,7 @@ pipeline {
             steps {
                 script {
                     pom = readMavenPom file: 'pom.xml' 
-                    nexus_url = "172.31.80.58"
+                    def nexus_url = "172.31.80.58"
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: "${pom.artifactId}", 
                                 classifier: '', 
@@ -66,7 +69,7 @@ pipeline {
                                 type: "${pom.packaging}"]], 
                                 credentialsId: "nexusrepo", 
                                 groupId: "${pom.groupId}", 
-                                nexusUrl: '${nexus_url}:8081', 
+                                nexusUrl: "${nexus_url}:8081", 
                                 nexusVersion: 'nexus3',
                                 protocol: 'http', 
                                 repository: 'mvn', 
