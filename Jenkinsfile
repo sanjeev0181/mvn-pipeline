@@ -77,6 +77,14 @@ pipeline {
                 }
             }
          }
+         stage("uploading sonarqube"){
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'nexusrepo'
+                    sh "mvn clean package sonar:sonar"
+                }
+            }
+         }
     }
 
 }
