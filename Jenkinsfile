@@ -80,8 +80,8 @@ pipeline {
                     echo "groupid-d --> ${pom.groupId}"
                     echo "packing-d --> ${pom.packaging}"
                     echo "version-d -- > ${pom.version}"
-                    echo "path-d --> pwd"
-                    echo "list -- > ls -ltra"
+                    sh "pwd"
+                    sh "ls -ltra"
                     
                     nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
 
