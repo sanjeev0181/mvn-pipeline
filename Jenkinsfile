@@ -39,9 +39,9 @@
 // }
 
 
+def nexus_url = 3.94.8.130
 pipeline {
     agent any 
-
     stages {
         stage("mvn build"){
             steps {
@@ -51,6 +51,7 @@ pipeline {
         stage("push artifact") {
              steps {
                  sh 'cp target/*.war /opt/tomcat_10/webapps'
+                # feature 
                 archiveArtifacts artifacts: "**/target/*.war"
              }
          }
@@ -65,7 +66,7 @@ pipeline {
                                 type: "${pom.packaging}"]], 
                                 credentialsId: "nexusrepo", 
                                 groupId: "${pom.groupId}", 
-                                nexusUrl: '172.31.80.58:8081', 
+                                nexusUrl: '${nexus_url}:8081', 
                                 nexusVersion: 'nexus3',
                                 protocol: 'http', 
                                 repository: 'mvn', 
