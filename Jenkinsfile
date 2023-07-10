@@ -20,8 +20,10 @@ pipeline {
         }
         stage("Upload war to nexus"){
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'nexus-repo', 
-                                                  classifier: '', file: 'target/nexus-repo-5.0.0.war', 
+                script {
+                    def mavenPom = readMavenPom file: 'pom.xml'
+                    nexusArtifactUploader artifacts: [[artifactId: 'nexus-repo', 
+                                                  classifier: '', file: 'target/nexus-repo-${mavenPom.version}.war', 
                                                   type: 'war']], 
                                                   credentialsId: 'nexusrepo', 
                                                   groupId: 'icic', 
@@ -29,7 +31,8 @@ pipeline {
                                                   nexusVersion: 'nexus3',
                                                   protocol: 'http', 
                                                   repository: 'mvn', 
-                                                  version: '5.0.0'
+                                                  version: '${mavenPom.version}'
+                }
             }
         }
     }
