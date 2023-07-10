@@ -27,7 +27,7 @@ pipeline {
                                                   type: 'war']], 
                                                   credentialsId: 'nexusrepo', 
                                                   groupId: 'icic', 
-                                                  nexusUrl: '172.31.80.58:8081', 
+                                                  nexusUrl: '3.94.8.130:8081', 
                                                   nexusVersion: 'nexus3',
                                                   protocol: 'http', 
                                                   repository: 'mvn', 
