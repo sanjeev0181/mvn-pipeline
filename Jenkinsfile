@@ -54,29 +54,29 @@ pipeline {
         stage("push artifact") {
              steps {
                 sh 'cp target/*.war /opt/tomcat_10/webapps'
-                // archiveArtifacts artifacts: "**/target/*.war"
+                archiveArtifacts artifacts: "**/target/*.war"
              }
          }
-        //  stage("uploading artifactId") {
-        //     steps {
-        //         script {
-        //             pom = readMavenPom file: 'pom.xml' 
-        //             def nexus_url = "172.31.80.58"
-        //             nexusArtifactUploader artifacts: 
-        //                         [[artifactId: "${pom.artifactId}", 
-        //                         classifier: '', 
-        //                         file: "target/${pom.artifactId}-${pom.version}.war", 
-        //                         type: "${pom.packaging}"]], 
-        //                         credentialsId: "nexusrepo", 
-        //                         groupId: "${pom.groupId}", 
-        //                         nexusUrl: "${nexus_url}:8081", 
-        //                         nexusVersion: 'nexus3',
-        //                         protocol: 'http', 
-        //                         repository: 'mvn', 
-        //                         version: "${pom.version}"
-        //         }
-        //     }
-        //  }
+         stage("uploading artifactId") {
+            steps {
+                script {
+                    pom = readMavenPom file: 'pom.xml' 
+                    def nexus_url = "172.31.58.205"
+                    nexusArtifactUploader artifacts: 
+                                [[artifactId: "${pom.artifactId}", 
+                                classifier: '', 
+                                file: "target/${pom.artifactId}-${pom.version}.war", 
+                                type: "${pom.packaging}"]], 
+                                credentialsId: "nexusrepo", 
+                                groupId: "${pom.groupId}", 
+                                nexusUrl: "${nexus_url}:8081", 
+                                nexusVersion: 'nexus3',
+                                protocol: 'http', 
+                                repository: 'mvn', 
+                                version: "${pom.version}"
+                }
+            }
+         }
     }
 
 }
