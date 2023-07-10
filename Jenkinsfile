@@ -71,17 +71,17 @@ pipeline {
                     if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
 
-                        nexusArtifactUploader artifacts: [[artifactId: pom.artifactId, 
+                        nexusArtifactUploader artifacts: [[artifactId: 'pom.artifactId', 
 
-                                                    classifier: '', file: artifactPath,
-                                                    type: pom.packaging]], 
+                                                    classifier: '', file: 'artifactPath',
+                                                    type: 'pom.packaging']], 
                                                     credentialsId: 'nexusrepo', 
-                                                    groupId: pom.groupId, 
+                                                    groupId: 'pom.groupId', 
                                                     nexusUrl: '3.94.8.130:8081', 
                                                     nexusVersion: 'nexus3', 
                                                     protocol: 'http', 
-                                                    repository: mvn, 
-                                                    version: pom.version
+                                                    repository: 'mvn', 
+                                                    version: 'pom.version'
                     }                                
                     else {
                         error "*** File: ${artifactPath}, could not be found";
