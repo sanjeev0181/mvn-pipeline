@@ -39,7 +39,7 @@
 // }
 
 
-def nexus_url = 3.94.8.130
+def nexus_url = "3.94.8.130"
 pipeline {
     agent any 
     stages {
