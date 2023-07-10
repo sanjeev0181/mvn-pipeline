@@ -55,11 +55,11 @@ pipeline {
             }
         
         }
-        stage("push artifact") {
-            steps {
-                sh 'cp target/*.war /opt/tomcat_10/webapps'
-            }
-        }
+        // stage("push artifact") {
+        //     steps {
+        //         sh 'cp target/*.war /opt/tomcat_10/webapps'
+        //     }
+        // }
          stage("publish to nexus") {
             steps {
                 script {
