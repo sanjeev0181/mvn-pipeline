@@ -64,24 +64,28 @@ pipeline {
             steps {
                 script {
                     def pom = readMavenPom file: "pom.xml";
-                    echo "artifact-d--> ${pom.artifactId}"
-                    echo "groupid-d --> ${pom.groupId}"
-                    echo "packing-d --> ${pom.packaging}"
-                    echo "version-d -- > ${pom.version}"
-                    sh "pwd"
-                    sh "ls -ltra"
-                    
-                    nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
+                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+                    artifactPath = filesByGlob[0].path;
+                    artifactExists = fileExists artifactPath;
+                    if(artifactExists) {
+                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
 
-                                                    classifier: '', file: 'target/${pom.artifactId}-${pom.version}.${pom.packaging}',
-                                                    type: '${pom.packaging}']], 
+                        nexusArtifactUploader artifacts: [[artifactId: pom.artifactId, 
+
+                                                    classifier: '', file: artifactPath,
+                                                    type: pom.packaging]], 
                                                     credentialsId: 'nexusrepo', 
-                                                    groupId: '${pom.groupId}', 
+                                                    groupId: pom.groupId, 
                                                     nexusUrl: '3.94.8.130:8081', 
                                                     nexusVersion: 'nexus3', 
                                                     protocol: 'http', 
-                                                    repository: 'mvn', 
-                                                    version: '${pom.version}'
+                                                    repository: mvn, 
+                                                    version: pom.version
+                    }                                
+                    else {
+                        error "*** File: ${artifactPath}, could not be found";
+                    }
                      }
                 }
             }
