@@ -50,8 +50,7 @@ pipeline {
         }
         stage("push artifact") {
              steps {
-                 sh 'cp target/*.war /opt/tomcat_10/webapps'
-                # feature 
+                sh 'cp target/*.war /opt/tomcat_10/webapps'
                 archiveArtifacts artifacts: "**/target/*.war"
              }
          }
