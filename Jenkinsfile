@@ -77,6 +77,7 @@ pipeline {
                     def pom = readMavenPom file: "pom.xml";
                     
                     sh """cd target,
+                          cp target/*.war  .,
                           echo pwd,
                           ls -l """
                     
