@@ -57,7 +57,7 @@ pipeline {
     //     NEXUS_CREDENTIAL_ID = "nexusrepo"
     // }
     options {
-        buildDiscarder(logRotator(numToKeepStr: '3'))
+        buildDiscarder(logRotator(numToKeepStr: '9'))
     }
     stages {
         stage("build") {
@@ -76,26 +76,22 @@ pipeline {
                 script {
                     def pom = readMavenPom file: "pom.xml";
                     
-                    sh """cd target/,
-                          #cp target/*.war  .,
-                          echo pwd,
-                          ls -l """
-                    
-                    // echo "artifact-d--> ${pom.artifactId}"
-	                // echo "groupid-d --> ${pom.groupId}"
-                    // echo "packing-d --> ${pom.packaging}"
-                    // echo "version-d -- > ${pom.version}"
-                    // nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
+                    echo "artifact-d--> ${pom.artifactId}"
+                    echo "groupid-d --> ${pom.groupId}"
+                    echo "packing-d --> ${pom.packaging}"
+                    echo "version-d -- > ${pom.version}"
+                    sh "ls /target/"
+                    nexusArtifactUploader artifacts: [[artifactId: '${pom.artifactId}', 
 
-                    //                                 classifier: '', file: 'target/${pom.artifactId}-{pom.version}.war',
-                    //                                  type: '${pom.packaging}']], 
-                    //                                  credentialsId: 'nexusrepo', 
-                    //                                  groupId: '${pom.groupId}', 
-                    //                                  nexusUrl: '3.94.8.130:8081', 
-                    //                                  nexusVersion: 'nexus3', 
-                    //                                  protocol: 'http', 
-                    //                                  repository: 'mvn', 
-                    //                                  version: '${pom.version}'
+                                                    classifier: '', file: 'target/*.war',
+                                                    type: '${pom.packaging}']], 
+                                                    credentialsId: 'nexusrepo', 
+                                                    groupId: '${pom.groupId}', 
+                                                    nexusUrl: '3.94.8.130:8081', 
+                                                    nexusVersion: 'nexus3', 
+                                                    protocol: 'http', 
+                                                    repository: 'mvn', 
+                                                    version: '${pom.version}'
                      }
                 }
             }
