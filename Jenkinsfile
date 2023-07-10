@@ -41,10 +41,10 @@
 
 pipeline {
     agent any 
-    
+
     stages {
         stage("mvn build"){
-            step {
+            steps{
                 sh "mvn clean package"
             }
         }
