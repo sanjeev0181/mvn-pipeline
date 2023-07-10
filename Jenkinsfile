@@ -58,11 +58,12 @@ pipeline {
                 script {
                     sh "ls -ltra"
                     sh " cd target/*.war"
+                    // #sh " cp target/nexus-repo-6.0.0.war  /root/.jenkins/workspace/mvn-pipeline@tmp/durable-e4269f7b/"
                     def pom = readMavenPom file: 'pom.xml' 
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: '${pom.artifactId}', 
                                 classifier: '', 
-                                file: 'target/nexus-repo-6.0.0.war.', 
+                                file: 'target/nexus-repo-6.0.0.war', 
                                 type: '${pom.packaging}']], 
                                 credentialsId: 'nexusrepo', 
                                 groupId: '${pom.groupId}', 
