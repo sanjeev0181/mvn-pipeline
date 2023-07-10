@@ -56,9 +56,11 @@ pipeline {
          stage("uploading artifactId") {
             steps {
                 script {
+                    sh "pwd"
                     sh "ls -ltra"
                     sh " cd target/*.war"
                     sh " cp target/nexus-repo-6.0.0.war  /root/.jenkins/workspace/mvn-pipeline@tmp/durable-e4269f7b/"
+                    sh "cd /root/.jenkins/workspace/mvn-pipeline@tmp/durable-e4269f7b"
                     def pom = readMavenPom file: 'pom.xml' 
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: '${pom.artifactId}', 
