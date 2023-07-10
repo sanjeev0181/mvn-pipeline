@@ -51,7 +51,7 @@ pipeline {
         stage("push artifact") {
              steps {
                  sh 'cp target/*.war /opt/tomcat_10/webapps'
-                archiveArtifacts artifacts: "*/target/.war"
+                archiveArtifacts artifacts: "**/target/.war"
              }
          }
          stage("uploading artifactId") {
@@ -59,7 +59,7 @@ pipeline {
                 script {
                     pom = readMavenPom file: 'pom.xml' 
                     nexusArtifactUploader artifacts: 
-                                [[artifactId: '${pom.artifactId}', 
+                                [[artifactId: "${pom.artifactId}", 
                                 classifier: '', 
                                 file: "target/${pom.artifactId}.war", 
                                 type: "${pom.packaging}"]], 
