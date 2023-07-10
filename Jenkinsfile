@@ -63,7 +63,7 @@ pipeline {
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: '${pom.artifactId}', 
                                 classifier: '', 
-                                file: 'target/nexus-repo-6.0.0.war', 
+                                file: 'target/*.war', 
                                 type: '${pom.packaging}']], 
                                 credentialsId: 'nexusrepo', 
                                 groupId: '${pom.groupId}', 
