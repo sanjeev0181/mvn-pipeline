@@ -80,7 +80,7 @@ pipeline {
          stage("uploading sonarqube"){
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'nexusrepo'
+                    withSonarQubeEnv(credentialsId: 'nexusrepo') 
                     sh "mvn sonar:sonar"
                 }
             }
