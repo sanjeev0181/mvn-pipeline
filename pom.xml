@@ -4,7 +4,7 @@
 
     <groupId>icic</groupId>
     <artifactId>nexus-repo</artifactId>
-    <version>6.0.0</version>
+    <version>6.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>funds</name>
