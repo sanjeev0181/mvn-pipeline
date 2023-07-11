@@ -90,7 +90,7 @@ pipeline {
          stage("Docker build") {
             environment {
                 // Docker_Image = "sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}"
-                REGISTRY_CREDENTIALS = credentials('Dockerhublogin')
+                // REGISTRY_CREDENTIALS = credentials('Dockerhublogin')
             }
             steps {
                 script {
