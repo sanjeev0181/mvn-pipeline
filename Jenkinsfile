@@ -95,7 +95,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker build -t ${Docker_Image} .'
-                    def dockerImage = docker.image("$ {Docker_Image}}" )
+                    def dockerImage = docker.image("${Docker_Image}}" )
                     withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') {
                         dockerImage.push()
                     }
