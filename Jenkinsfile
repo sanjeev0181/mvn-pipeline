@@ -92,16 +92,16 @@ pipeline {
                 Docker_Image = "sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}"
                 REGISTRY_CREDENTIALS = credentials('Dockerhublogin')
             }
-            // steps {
-            //     script {
-            //         sh 'docker build -t ${Docker_Image} .'
-            //         echo "Docker Image Tag Name ---> ${dockerImageTag}"
+            steps {
+                script {
+                    sh 'docker build -t ${Docker_Image} .'
+                    echo "Docker Image Tag Name ---> ${dockerImageTag}"
             //         def dockerImage = docker.image("${Docker_Image}}")
             //         withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') { 
             //             dockerImage.push("${env.BUILD_NUMBER}")
             //             dockerImage.push("latest")
-            //         }
-            //     }
+                    }
+                }
              }
          }
          
