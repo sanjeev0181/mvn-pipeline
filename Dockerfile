@@ -25,8 +25,8 @@ RUN apt-get update && \
 
 # Download and install Tomcat
 RUN wget https://downloads.apache.org/tomcat/tomcat9/v9.0.54/bin/apache-tomcat-9.0.54.tar.gz && \
-    tar -xvf apache-tomcat-9.0.54.tar.gz && \
-    rm apache-tomcat-9.0.54.tar.gz
+    tar -xvf apache-tomcat-9.0.54.tar.gz && \ 
+    
 
 # Set the environment variables for Tomcat
 ENV CATALINA_HOME=/apache-tomcat-9.0.54
