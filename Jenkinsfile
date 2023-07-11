@@ -43,7 +43,7 @@
 pipeline {
     agent any 
      options {
-        buildDiscarder(logRotator(numToKeepStr: '3'))
+        buildDiscarder(logRotator(numToKeepStr: '2'))
     }
     stages {
         stage("mvn build"){
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     pom = readMavenPom file: 'pom.xml' 
-                    def nexus_url = "172.31.58.205"
+                    def nexus_url = "18.207.142.120"
 
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: "${pom.artifactId}", 
@@ -90,9 +90,23 @@ pipeline {
          stage("Docker build") {
             environment {
                 Docker_Image = "sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}"
+                REGISTRY_CREDENTIALS = credentials('Dockerhublogin')
             }
             steps {
-                sh 'docker build -t ${Docker_Image} .'
+                script {
+                    sh 'docker build -t ${Docker_Image} .'
+                    def dockerImage = docker.("{Docker_Image}")
+                    withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') {
+                        dockerImage.push()
+                    }
+                }
+            }
+         }
+         
+                    withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') {
+                        sh "docker push "
+                    }
+                }
             }
          }
     }

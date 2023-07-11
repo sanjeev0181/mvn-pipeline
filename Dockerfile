@@ -16,27 +16,5 @@
 # COPY ./*.war  /opt/tomcat/webapps
 # CMD  ["/opt/tomcat/bin/catlina.sh","run"]
 
-
-FROM ubuntu:latest
-
-# Update the package index and install necessary dependencies
-RUN apt-get update && \
-    apt-get install -y wget default-jdk
-
-# Download and install Tomcat
-RUN wget https://downloads.apache.org/tomcat/tomcat9/v9.0.54/bin/apache-tomcat-9.0.54.tar.gz && \
-    tar -xvf apache-tomcat-9.0.54.tar.gz && \ 
-    
-
-# Set the environment variables for Tomcat
-ENV CATALINA_HOME=/apache-tomcat-9.0.54
-ENV PATH=$CATALINA_HOME/bin:$PATH
-
-# Copy the WAR file to the webapps directory
-COPY target/*.war $CATALINA_HOME/webapps/
-
-# Expose the default Tomcat port (8080)
-EXPOSE 8063
-
-# Start Tomcat when the container starts
-CMD ["catalina.sh", "run"]
+FROM tomcat:8
+COPY target/*.war /usr/local/tomcat/webapps/
