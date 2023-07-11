@@ -62,7 +62,7 @@ pipeline {
                 script {
                     pom = readMavenPom file: 'pom.xml' 
                     def nexus_url = "172.31.58.205"
-                    
+
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: "${pom.artifactId}", 
                                 classifier: '', 
@@ -92,7 +92,7 @@ pipeline {
                 Docker_Image = "sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}"
             }
             steps {
-                sh 'docker build -t ${Docker_Image}'
+                sh 'docker build -t ${Docker_Image} .'
             }
          }
     }
