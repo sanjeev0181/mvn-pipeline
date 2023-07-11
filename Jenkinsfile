@@ -62,6 +62,7 @@ pipeline {
                 script {
                     pom = readMavenPom file: 'pom.xml' 
                     def nexus_url = "172.31.58.205"
+                    
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: "${pom.artifactId}", 
                                 classifier: '', 
