@@ -96,7 +96,7 @@ pipeline {
                 script {
                     // sh 'docker build -t ${Docker_Image} .'
                     sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
-                    echo "Docker Image Tag Name ---> ${dockerImageTag}"
+                    // echo "Docker Image Tag Name ---> ${dockerImageTag}"
             //         def dockerImage = docker.image("${Docker_Image}}")
             //         withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') { 
             //             dockerImage.push("${env.BUILD_NUMBER}")
