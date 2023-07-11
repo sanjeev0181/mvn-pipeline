@@ -96,7 +96,8 @@ pipeline {
                 script {
                     sh 'docker build -t ${Docker_Image} .'
                     def dockerImage = docker.image("${Docker_Image}}" )
-                    withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') {
+                    // withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') {
+                    docker.withRegistry("https://index.docker.io/v1/", "Dockerhublogin") {
                         dockerImage.push()
                     }
                 }
