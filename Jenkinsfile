@@ -92,7 +92,7 @@ pipeline {
                 script {
                     sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
                     sh 'docker login -u sanjeev0181 -padityasanjeev'
-                    sh 'docker push sanjeev0181/mvn-pipeline'
+                    sh 'docker push sanjeev0181/mvn-pipeline:latest'
                     }
                 }
              }
