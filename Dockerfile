@@ -23,6 +23,11 @@ FROM centos:latest
 RUN yum update -y && \
     yum install -y java-11-openjdk-devel
 
+# Update repository configuration
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Base.repo && \
+    sed -i 's/#baseurl/baseurl/g' /etc/yum.repos.d/CentOS-Base.repo && \
+    sed -i 's/mirror.centos.org/vault.centos.org/g' /etc/yum.repos.d/CentOS-Base.repo
+
 # Download and extract Tomcat
 RUN yum install -y wget && \
     wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.50/bin/apache-tomcat-9.0.50.tar.gz && \
