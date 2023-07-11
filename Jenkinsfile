@@ -81,7 +81,6 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: 'nexusrepo') {
-                    // waitForQualityGate abortPipeline: false, credentialsId: 'nexusrepo'
                     sh "mvn sonar:sonar"
                     }
                 }
