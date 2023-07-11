@@ -103,12 +103,8 @@ pipeline {
             }
          }
          
-                    withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') {
-                        sh "docker push "
-                    }
-                }
-            }
-         }
+                    
+         
     }
 
 }
