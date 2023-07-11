@@ -86,6 +86,14 @@ pipeline {
                 }
             }
          }
+         stage("Docker build") {
+            environment {
+                Docker_Image = "sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}"
+            }
+            steps {
+                sh 'docker build -t ${Docker_Image}'
+            }
+         }
     }
 
 }
