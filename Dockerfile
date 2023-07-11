@@ -1,5 +1,5 @@
 FROM centos:latest
-RUN yum install java-11-openjdk-devel -y 
+RUN yum update -y && yum install java-11-openjdk-devel -y 
 
 RUN mkdir /opt/tomcat
 WORKDIR   /opt/tomcat
