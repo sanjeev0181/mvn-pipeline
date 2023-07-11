@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     pom = readMavenPom file: 'pom.xml' 
-                    def nexus_url = "18.207.142.120"
+                    def nexus_url = "172.31.58.205"
 
                     nexusArtifactUploader artifacts: 
                                 [[artifactId: "${pom.artifactId}", 
