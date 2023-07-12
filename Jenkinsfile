@@ -111,7 +111,7 @@ pipeline {
                     keepForever: false, 
                     managedArtifacts: false, 
                     noUploadOnFailure: false,
-                     selectedRegion: 'us-iso-east-1', 
+                     selectedRegion: 'us-east-1', 
                      showDirectlyInBrowser: false, 
                      sourceFile: '**/target/*.war', 
                      storageClass: 'STANDARD', 
