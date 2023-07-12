@@ -90,7 +90,7 @@ pipeline {
          stage("Docker build") {
             steps {
                 script {
-                    sh "docker rmi ${imageName} || true"
+                    // sh "docker rmi ${imageName} || true"
                     sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
                     withCredentials([string(credentialsId: 'dockerhub-login', variable: 'Dockerhublogin')]) {
                         sh 'docker login -u sanjeev0181 -p{dockerhub-login}'
