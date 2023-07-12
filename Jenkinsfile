@@ -98,5 +98,29 @@ pipeline {
                 }
              }
          }
+         stage("S3 upload to artifact") {
+            steps {
+                script {
+                    s3Upload consoleLogLevel: 'INFO', 
+                    dontSetBuildResultOnFailure: false, 
+                    dontWaitForConcurrentBuildCompletion: false, 
+                    entries: [[bucket: 'jenkins-pipeline-s3/${JOB_NAME}-${BUILD_NUMBER}', 
+                    excludedFile: '/webapps/target', 
+                    flatten: false, 
+                    gzipFiles: false, 
+                    keepForever: false, 
+                    managedArtifacts: false, 
+                    noUploadOnFailure: false,
+                     selectedRegion: 'us-iso-east-1', 
+                     showDirectlyInBrowser: false, 
+                     sourceFile: '**/target/*.war', 
+                     storageClass: 'STANDARD', 
+                     uploadFromSlave: false, useServerSideEncryption: false]], 
+                     pluginFailureResultConstraint: 'SUCCESS', 
+                     profileName: 'jenkins-pipeline-s3', 
+                     userMetadata: []
+                }
+            }
+         }
          
      }
