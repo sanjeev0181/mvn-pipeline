@@ -134,9 +134,9 @@
 // #one server to other server in sonarqube
 pipeline {
     agent any
-    tools {
-        maven 'mvn'
-    }
+    // tools {
+    //     // maven 'mvn'
+    // }
     options {
         buildDiscarder(logRotator(numToKeepStr: '3'))
     }
