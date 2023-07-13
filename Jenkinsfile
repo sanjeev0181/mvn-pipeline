@@ -148,16 +148,16 @@ pipeline {
         
         }
     }
-    stages {
-        stage("sonarqube") {
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'jenkinssonarqube') {
-                    sh "mvn sonar:sonar"
-                    }
+    
+    stage("sonarqube") {
+        steps {
+            script {
+                withSonarQubeEnv(credentialsId: 'jenkinssonarqube') {
+                sh "mvn sonar:sonar"
                 }
-
             }
+
         }
     }
+    
 }
