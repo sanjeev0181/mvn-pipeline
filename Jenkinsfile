@@ -131,7 +131,7 @@
 
 
 
-#one server to other server in sonarqube
+// #one server to other server in sonarqube
 pipeline {
     agent any
     tools {
