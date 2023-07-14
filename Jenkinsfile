@@ -51,33 +51,33 @@ pipeline {
                 sh "mvn clean package"
             }
         }
-        stage("push artifact") {
-             steps {
-                sh 'cp target/*.war /opt/tomcat_10/webapps'
-                archiveArtifacts artifacts: "**/target/*.war"
-             }
-         }
-         stage("uploading artifactId") {
-            steps {
-                script {
-                    pom = readMavenPom file: 'pom.xml' 
-                    def nexus_url = "172.31.58.205"
+        // stage("push artifact") {
+        //      steps {
+        //         sh 'cp target/*.war /opt/tomcat_10/webapps'
+        //         archiveArtifacts artifacts: "**/target/*.war"
+        //      }
+        //  }
+        //  stage("uploading artifactId") {
+        //     steps {
+        //         script {
+        //             pom = readMavenPom file: 'pom.xml' 
+        //             def nexus_url = "172.31.58.205"
 
-                    nexusArtifactUploader artifacts: 
-                                [[artifactId: "${pom.artifactId}", 
-                                classifier: '', 
-                                file: "target/${pom.artifactId}-${pom.version}.war", 
-                                type: "${pom.packaging}"]], 
-                                credentialsId: "nexusrepo01", 
-                                groupId: "${pom.groupId}", 
-                                nexusUrl: "${nexus_url}:8081", 
-                                nexusVersion: 'nexus3',
-                                protocol: 'http', 
-                                repository: 'mvn', 
-                                version: "${pom.version}"
-                }
-            }
-         }
+        //             nexusArtifactUploader artifacts: 
+        //                         [[artifactId: "${pom.artifactId}", 
+        //                         classifier: '', 
+        //                         file: "target/${pom.artifactId}-${pom.version}.war", 
+        //                         type: "${pom.packaging}"]], 
+        //                         credentialsId: "nexusrepo01", 
+        //                         groupId: "${pom.groupId}", 
+        //                         nexusUrl: "${nexus_url}:8081", 
+        //                         nexusVersion: 'nexus3',
+        //                         protocol: 'http', 
+        //                         repository: 'mvn', 
+        //                         version: "${pom.version}"
+        //         }
+        //     }
+        //  }
          stage("uploading sonarqube"){
             steps {
                 script {
@@ -87,19 +87,19 @@ pipeline {
                 }
             }
          }
-         stage("Docker build") {
-            steps {
-                script {
-                    // sh "docker rmi ${imageName} || true"
-                    sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
-                    withCredentials([string(credentialsId: 'dockerhub-login', variable: 'Dockerhublogin')]) {
-                        sh 'docker login -u sanjeev0181 -p{dockerhub-login}'
-                        }
-                    sh 'docker push sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}'
+        //  stage("Docker build") {
+        //     steps {
+        //         script {
+        //             // sh "docker rmi ${imageName} || true"
+        //             sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
+        //             withCredentials([string(credentialsId: 'dockerhub-login', variable: 'Dockerhublogin')]) {
+        //                 sh 'docker login -u sanjeev0181 -p{dockerhub-login}'
+        //                 }
+        //             sh 'docker push sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}'
 
-                    }
-                }
-             }
+        //             }
+        //         }
+        //      }
          
          stage("S3 upload to artifact") {
             steps {
