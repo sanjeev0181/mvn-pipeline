@@ -124,12 +124,13 @@ pipeline {
                      userMetadata: []
                 }
             }
-         }
-         post {
-            always {
-                slackSend channel: '#mvn-pipeline', message: 'This build is scucess on mvn pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}'
+            post {
+                always {
+                    slackSend channel: '#mvn-pipeline', message: 'This build is scucess on mvn pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}'
+                    }
             }
-         }
+        }
+         
          
      }
 }
