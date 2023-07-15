@@ -125,7 +125,7 @@ pipeline {
             }
             post {
                 always {
-                    slackSend channel: '#mvn-pipeline', message: 'This build is scucess on mvn pipeline ${env.JOB_NAME} ${env.BUILD_NUMBER}'
+                    slackSend channel: '#mvn-pipeline', message: 'This build is scucess on mvn pipeline ${JOB_NAME} ${BUILD_NUMBER}'
                     }
             }
         }
