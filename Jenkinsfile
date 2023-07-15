@@ -81,7 +81,7 @@ pipeline {
          stage("uploading sonarqube"){
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'newsonar-tocken') {
+                    withSonarQubeEnv(credentialsId: 'jenkinssonarqube') {
                     sh "mvn sonar:sonar"
                     }
                 }
