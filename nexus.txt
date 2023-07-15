@@ -7,7 +7,7 @@ mv nexus-3.45.0-01 nexus
 adduser nexus
 nexus ALL=(ALL) NOPASSWD: ALL
 sudo chown -R nexus:nexus nexus sonatype-work/
-sudo nano /etc/systemd/system/nexus.service
+sudo vi /etc/systemd/system/nexus.service
 
 [Unit]
 Description=nexus service
@@ -27,8 +27,9 @@ sudo systemctl enable nexus
 sudo systemctl status nexus
 
 
+mvn archetype:generate
 
 
-/opt/tomcat10/webapps
-
-/root/lastestwarfile
+withDockerRegistry(credentialsId: 'Dockerhublogin', url: 'https://hub.docker.com/') {
+    // some block
+}
