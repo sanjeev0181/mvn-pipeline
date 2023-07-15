@@ -92,9 +92,8 @@ pipeline {
                 script {
                     // sh "docker rmi ${imageName} || true"
                     sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
-                    withCredentials([string(credentialsId: 'dockerhub-login', variable: 'Dockerhublogin')]) {
-                        sh 'docker login -u sanjeev0181 -p{dockerhub-login}'
-                        }
+                    // 
+                    sh 'docker login -u sanjeev0181 -padityasanjeev'
                     sh 'docker push sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}'
 
                     }
