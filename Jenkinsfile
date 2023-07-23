@@ -99,7 +99,7 @@ pipeline {
                     sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
                     echo "********** Pushing image to Dockerhub ***********"
                     withCredentials([string(credentialsId: 'Dockerhublogin02', variable: 'Docker')]) {
-                    sh 'docker login -u sanjeev0181 -p ${Dockerhublogin02}'
+                    sh 'docker login -u sanjeev0181 -p ${Docker}'
                     }
                     sh 'docker push sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}'
 
