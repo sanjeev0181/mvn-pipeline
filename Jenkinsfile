@@ -45,64 +45,72 @@ pipeline {
      options {
         buildDiscarder(logRotator(numToKeepStr: '2'))
     }
+    // Maven build step 
     stages {
         stage("mvn build"){
             steps {
                 sh "mvn clean package"
             }
         }
-        stage("push artifact") {
-             steps {
-                sh 'cp target/*.war /opt/tomcat_10/webapps'
-                archiveArtifacts artifacts: "**/target/*.war"
-             }
-         }
-         stage("uploading artifactId") {
-            steps {
-                script {
-                    pom = readMavenPom file: 'pom.xml' 
-                    def nexus_url = "52.86.35.87"
+        // tomcat deploy step 
+        // stage("push artifact") {
+        //      steps {
+        //         sh 'cp target/*.war /opt/tomcat_10/webapps'
+        //         archiveArtifacts artifacts: "**/target/*.war"
+        //      }
+        //  }
+        // //  nexus uploading to artifactid
+        //  stage("uploading artifactId") {
+        //     steps {
+        //         script {
+        //             pom = readMavenPom file: 'pom.xml' 
+        //             def nexus_url = "52.86.35.87"
 
-                    nexusArtifactUploader artifacts: 
-                                [[artifactId: "${pom.artifactId}", 
-                                classifier: '', 
-                                file: "target/${pom.artifactId}-${pom.version}.war", 
-                                type: "${pom.packaging}"]], 
-                                credentialsId: "nexusrepo01", 
-                                groupId: "${pom.groupId}", 
-                                nexusUrl: "${nexus_url}:8081", 
-                                nexusVersion: 'nexus3',
-                                protocol: 'http', 
-                                repository: 'mvn', 
-                                version: "${pom.version}"
-                }
-            }
-         }
-         stage("uploading sonarqube"){
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'jenkinssonarqube') {
-                    sh "mvn sonar:sonar"
-                    }
-                }
-            }
-         }
+        //             nexusArtifactUploader artifacts: 
+        //                         [[artifactId: "${pom.artifactId}", 
+        //                         classifier: '', 
+        //                         file: "target/${pom.artifactId}-${pom.version}.war", 
+        //                         type: "${pom.packaging}"]], 
+        //                         credentialsId: "nexusrepo01", 
+        //                         groupId: "${pom.groupId}", 
+        //                         nexusUrl: "${nexus_url}:8081", 
+        //                         nexusVersion: 'nexus3',
+        //                         protocol: 'http', 
+        //                         repository: 'mvn', 
+        //                         version: "${pom.version}"
+        //         }
+        //     }
+        //  }
+        // //  sonarqube scaner
+        //  stage("uploading sonarqube"){
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv(credentialsId: 'jenkinssonarqube') {
+        //             sh "mvn sonar:sonar"
+        //             }
+        //         }
+        //     }
+        //  }
+        //  docker buils and push 
          stage("Docker build") {
             steps {
                 script {
-                    // sh "docker rmi ${imageName} || true"
+                    echo "*************** This is build stage **********"
                     sh 'docker build -t sanjeev0181/mvn-pipeline:v${BUILD_NUMBER} .'
-                    // 
-                    sh 'docker login -u sanjeev0181 -padityasanjeev'
+                    echo "********** Pushing image to Dockerhub ***********"
+                    withCredentials([string(credentialsId: 'Dockerhublogin02', variable: 'Docker')]) {
+                    sh 'docker login -u sanjeev0181 -p ${Dockerhublogin02}'
+                    }
                     sh 'docker push sanjeev0181/mvn-pipeline:v${BUILD_NUMBER}'
 
                     }
                 }
              }
-         
+        //  send war on s3 bucket
          stage("S3 upload to artifact") {
             steps {
                 script {
+                    echo " *************** S3 Upload to artifact **************** "
                     s3Upload consoleLogLevel: 'INFO', 
                     dontSetBuildResultOnFailure: false, 
                     dontWaitForConcurrentBuildCompletion: false, 
@@ -123,9 +131,10 @@ pipeline {
                      userMetadata: []
                 }
             }
+            // slack notifaction
             post {
                 always {
-                    slackSend channel: '#mvn-pipeline', message: "This build is scucess on/${JOB_NAME}-${BUILD_NUMBER}"
+                    slackSend channel: '#mvn-pipeline', message: "This build is scucess on ${JOB_NAME}-${BUILD_NUMBER}"
                     }
             }
         }

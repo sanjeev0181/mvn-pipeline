@@ -4,7 +4,7 @@
 
     <groupId>icic</groupId>
     <artifactId>nexus-repo</artifactId>
-    <version>7.7.9</version>
+    <version>7.8.0</version>
     <packaging>war</packaging>
 
 
