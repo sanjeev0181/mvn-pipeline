@@ -53,44 +53,45 @@ pipeline {
             }
         }
         // tomcat deploy step 
-        // stage("push artifact") {
-        //      steps {
-        //         sh 'cp target/*.war /opt/tomcat_10/webapps'
-        //         archiveArtifacts artifacts: "**/target/*.war"
-        //      }
-        //  }
-        // //  nexus uploading to artifactid
-        //  stage("uploading artifactId") {
-        //     steps {
-        //         script {
-        //             pom = readMavenPom file: 'pom.xml' 
-        //             def nexus_url = "52.86.35.87"
+        stage("push artifact") {
+             steps {
+                sh 'cp target/*.war /opt/tomcat_10/webapps'
+                archiveArtifacts artifacts: "**/target/*.war"
+             }
+         }
+        //  nexus uploading to artifactid
+        // pipeline-utility-steps install pligin on jenkins server
+         stage("uploading artifactId") {
+            steps {
+                script {
+                    pom = readMavenPom file: 'pom.xml' 
+                    def nexus_url = "52.86.35.87"
 
-        //             nexusArtifactUploader artifacts: 
-        //                         [[artifactId: "${pom.artifactId}", 
-        //                         classifier: '', 
-        //                         file: "target/${pom.artifactId}-${pom.version}.war", 
-        //                         type: "${pom.packaging}"]], 
-        //                         credentialsId: "nexusrepo01", 
-        //                         groupId: "${pom.groupId}", 
-        //                         nexusUrl: "${nexus_url}:8081", 
-        //                         nexusVersion: 'nexus3',
-        //                         protocol: 'http', 
-        //                         repository: 'mvn', 
-        //                         version: "${pom.version}"
-        //         }
-        //     }
-        //  }
-        // //  sonarqube scaner
-        //  stage("uploading sonarqube"){
-        //     steps {
-        //         script {
-        //             withSonarQubeEnv(credentialsId: 'jenkinssonarqube') {
-        //             sh "mvn sonar:sonar"
-        //             }
-        //         }
-        //     }
-        //  }
+                    nexusArtifactUploader artifacts: 
+                                [[artifactId: "${pom.artifactId}", 
+                                classifier: '', 
+                                file: "target/${pom.artifactId}-${pom.version}.war", 
+                                type: "${pom.packaging}"]], 
+                                credentialsId: "nexusrepo01", 
+                                groupId: "${pom.groupId}", 
+                                nexusUrl: "${nexus_url}:8081", 
+                                nexusVersion: 'nexus3',
+                                protocol: 'http', 
+                                repository: 'mvn', 
+                                version: "${pom.version}"
+                }
+            }
+         }
+        //  sonarqube scaner
+         stage("uploading sonarqube"){
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'jenkinssonarqube') {
+                    sh "mvn sonar:sonar"
+                    }
+                }
+            }
+         }
         //  docker buils and push 
          stage("Docker build") {
             steps {

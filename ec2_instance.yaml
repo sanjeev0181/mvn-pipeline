@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'EC2 instance with Docker, AWS CLI, and Security Group'
+
+Parameters:
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+    - t2.micro
+    - t2.small
+    - t2.medium
+    # Add more instance types as needed
+
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: ami-0efbb9b523fbc6c53 # Replace with the desired Amazon Linux AMI ID or other region-specific AMI ID
+      KeyName: Ohic # Replace with the name of your EC2 key pair
+      SecurityGroups:
+      - !Ref InstanceSecurityGroup
+      UserData:
+        Fn::Base64: !Sub "#!/bin/bash\n# Install Docker\nyum update -y\namazon-linux-extras install docker -y\nservice docker start\nusermod -a -G docker ec2-user\n#magic___^_^___line\n# Install AWS CLI\nyum install -y aws-cli\n#magic___^_^___line\n# App2Container \ncurl -o /opt/AWSApp2Container-installer-linux.tar.gz https://app2container-release-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/AWSApp2Container-installer-linux.tar.gz /opt\n"
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: EC2 Instance Security Group
+      SecurityGroupIngress:
+      - CidrIp: 0.0.0.0/0
+        IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+      - CidrIp: 10.0.0.0/8
+        IpProtocol: tcp
+        FromPort: 8080
+        ToPort: 8080
+        # Add more ingress rules as needed for other ports or IP ranges
+
+
+
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: jbossapplication
+
+Outputs:
+  InstancePublicIp:
+    Description: Public IP address of the EC2 instance
+    Value: !GetAtt EC2Instance.PublicIp
+  SecurityGroupId:
+    Description: Security Group ID
+    Value: !Ref InstanceSecurityGroup
+
+
+
+

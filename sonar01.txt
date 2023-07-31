@@ -1,0 +1,28 @@
+What is SonarQube?
+
+SonarQube is a Code Quality Assurance tool that collects and analyzes source code, and provides reports for the 
+code quality of your project. 
+It combines static and dynamic analysis tools and enables quality to be measured continually over time.
+
+----
+
+What are some benefits of using SonarQube in software development?
+
+Using SonarQube in software development brings several benefits, including:
+
+Improved code quality and reliability
+Early detection of bugs, vulnerabilities, and code smells
+Enforced coding standards and best practices
+Reduced technical debt and maintenance costs
+Enhanced team collaboration through code review and feedback
+Data-driven decision-making based on code quality metrics and reports.
+
+----
+
+Can SonarQube analyze code written in different programming languages?
+
+Yes, SonarQube supports the analysis of code written in various programming languages such as Java, C#, Python, 
+JavaScript, TypeScript, and many others. 
+It provides language-specific analyzers and plugins to perform static code analysis and detect issues in the codebase.
+
+---
